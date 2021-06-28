@@ -1,0 +1,50 @@
+<div class="container">
+    <form id="contact" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h2 i18n="HeaderContact|HeaderContactText app@appHeaderContact">{{'ContactTitle' | translate }}</h2>
+        <hr class="line-center">
+        <p i18n="Contact|ContactText app@appContact">{{'ContactDesc' | translate }}</p>
+        <fieldset>
+            <input id="name" placeholder="{{'ContactName' | translate }}" type="text" tabindex="1" formControlName="name" autocomplete='email' i18n-placeholder i18n="@@name_placeholder">
+        </fieldset>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+            <div *ngIf="name.errors['required']" i18n="@@name_required">
+                Name is required.
+            </div>
+        </div>
+        <fieldset>
+            <input id="email" placeholder="{{'ContactEmail' | translate }}" type="email" tabindex="2" formControlName="email" autocomplete='email' email i18n-placeholder i18n="@@email_placeholder">
+        </fieldset>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+            <div *ngIf="email.errors['required']" i18n="@@email_required">
+                Email is required.
+            </div>
+            <div *ngIf="email.errors['email']" i18n="@@email_invalid">
+                Email is not valid
+            </div>
+        </div>
+        <fieldset>
+            <textarea id="message" placeholder="{{'ContactFormDesc' | translate }}" tabindex="5" formControlName="message" i18n-placeholder i18n="@@message_placeholder"></textarea>
+        </fieldset>
+        <div *ngIf="message.invalid && (message.dirty || message.touched)" class="alert alert-danger">
+
+            <div *ngIf="message.errors['required']" i18n="@@message_required">
+                Message is required.
+            </div>
+            <div *ngIf="message.errors['minlength']" i18n="@@message_length_invalid">
+                Message must be at least 20 characters long.
+            </div>
+        </div>
+
+        <div *ngIf="res_message" [ngClass]="{ 'message-success': success == true, 'message-error' : success == false}">
+            <span class="fa " [ngClass]="{ 'fa-check': success == true, 'fa-times' : success == false}" role="img"></span>
+            <span>{{res_message}}</span>
+        </div>
+
+        <fieldset>
+            <button name="submit" type="submit" [disabled]="form.invalid" id="contact-submit" i18n="ContactButton|ContactButtonText app@appContactButton">{{'ContactButton' | translate }}</button>
+        </fieldset>
+
+        <div id="recaptcha-global"></div>
+    </form>

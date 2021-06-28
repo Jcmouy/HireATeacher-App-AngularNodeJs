@@ -1,0 +1,94 @@
+<span *ngIf="tipoAsignaturaData; else stillLoading">
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="planner-calendar">
+                <div class="doctor-container" style="display:none">
+                    <div class="app-doctors">
+                    </div>
+                    <div class="app-doctor-icon">
+                    </div>
+                </div>
+                <div class="drag-sample-wrapper droppable">
+                    <div class="schedule-container">
+                        <ejs-schedule #scheduleObj height='800px' [locale]="locale" cssClass='doctor-appointment-planner' [workHours]="workHours" [showWeekend]='false' [startHour]="startHour" [endHour]='endHour' [selectedDate]="selectedDate" [eventSettings]="eventSettings" [timeScale]="timeScale"
+                            [firstDayOfWeek]='firstDayOfWeek' [currentView]='currentView' (actionBegin)='onActionBegin($event)' (actionComplete)='onActionComplete($event)' (popupOpen)='onPopupOpen($event)' (eventRendered)='onEventRendered($event)' (navigating)='onNavigation($event)'
+                            (dataBound)='onDataBound()'>
+                            <e-resources>
+                                <e-resource field='DepartmentId' title="{{'DashboardSubject' | translate }}" name='Departments' query='resourceQuery' [dataSource]='specialistCategory' textField='Text' idField='DepartmentId' colorField='Color'>
+                                </e-resource>
+                                <e-resource field='DoctorId' title="{{'CalendarLevel' | translate }}" name='Doctors' [dataSource]='resourceDataSource' textField='Name' idField='Id' groupIDField='DepartmentId' colorField='Color' workDaysField='AvailableDays' startHour='StartHour' endHour='EndHour' query='resourceQuery'>
+                                </e-resource>
+                            </e-resources>
+                            <e-views>
+                                <e-view option="Week"></e-view>
+                            </e-views>
+                            <ng-template #quickInfoTemplatesHeader let-data>
+                                <div *ngIf="(data.elementType === 'event')">
+                                    <div class="quick-info-header">
+                                        <div class="quick-info-header-content" [ngStyle]=getBackGroundColor(data)>
+                                            <div class="quick-info-title">
+                                                {{'CalendarDetailSubject' | translate }}
+                                            </div>
+                                            <div class='duration-text'>
+                                                {{getEventDetails(data)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template #quickInfoTemplatesContent let-data>
+                                <ng-container [ngTemplateOutlet]="data.elementType == 'cell' ? cellContent : eventContent" [ngTemplateOutletContext]="{data:data}"></ng-container>
+                            </ng-template>
+                            <ng-template #cellContent let-data="data">
+                                <div class="e-cell-content">
+                                    <form class="e-schedule-form">
+                                        <div style="padding:10px">
+                                            <input class="subject e-field" type="text" name="Subject" placeholder="Title" style="width:100%">
+                                        </div>
+                                        <div style="padding:10px">
+                                            <input class="location e-field" type="text" name="Location" placeholder="Location" style="width:100%">
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                            <ng-template #eventContent let-data="data">
+                                <div *ngIf="(data.elementType === 'event')">
+                                    <div class="event-content">
+                                        <div class="patient-name-wrap">
+                                            <label>{{'DashboardSubject' | translate }}</label>:
+                                            <span>{{getDepartmentName(data)}}</span>
+</div>
+<div class="doctor-name-wrap">
+    <label> {{'CalendarLevel' | translate }}</label>:
+    <span>{{getDoctorName(data)}}</span>
+</div>
+<div class="notes-wrap">
+    <label>{{'CalendarCost' | translate }}</label>:
+    <span>${{data.Description}}</span>
+</div>
+</div>
+</div>
+</ng-template>
+</ejs-schedule>
+</div>
+<div class="treeview-container">
+    <div class="add-event-container">
+        <button ejs-button (click)='createNewEvent($event)' class="e-primary">{{'CalendarAdd' | translate }}</button>
+    </div>
+    <ejs-toast #calendarToast [position]='position' [width]='toastWidth' height='70px' showCloseButton='true'>
+        <ng-template #content>
+            <div>{{toastContent}}</div>
+        </ng-template>
+    </ejs-toast>
+</div>
+</div>
+</div>
+</div>
+</div>
+</span>
+
+<ng-template #stillLoading>
+    <div class="main-content">
+        <img style="position: absolute; margin-left: auto; margin-right: auto;  margin-top: 33%; left: 0; right: 0; text-align: center;" *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+    </div>
+</ng-template>

@@ -1,0 +1,173 @@
+<!-- nav -->
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser"> -->
+<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#">{{'Home' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#about">{{'About' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#team">{{'Team' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#service_provided">{{'Why' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#contact">{{'Contact' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <div class="d-inline-block" ngbDropdown>
+                    <button class="nav-link js-scroll-trigger" style="color: white; background: inherit; border: none;" id="dropdownManual" ngbDropdownToggle>{{'Region' | translate }}</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                        <div *ngFor="let language of textLang">
+                          <button (click)="changeAction(language.code)"  ngbDropdownItem>{{language.label}}</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/login">{{'Enter' | translate }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="div-overflowing bg-dark">
+    <div class="intro-body masthead">
+        <div class="content">
+            <div class="content_container intro-separator">
+                <h1 class="introduction-resume" i18n="header introduction|The header for this introduction app@appHeader">HireATeacher </h1>
+                <hr class="line-center">
+            </div>
+
+            <div class="content_container">
+                <p class="introduction-section" i18n="header introduction section|The header section for this introduction app@appHeaderSection">{{'Welcome' | translate }}</p>
+            </div>
+            <br>
+            <div class="typing-container">
+                <span class="typing-element"></span>
+            </div>
+            <br>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<!-- Sections -->
+
+<section id="about" class="content-section text-center">
+    <app-about></app-about>
+</section>
+
+<section id="team" class="content-section text-center">
+    <app-team></app-team>
+</section>
+
+<section id="service_provided" class="content-section text-center">
+    <app-service-provided></app-service-provided>
+</section>
+
+<section id="contact" class="content-section text-center">
+    <app-contact></app-contact>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark">
+    <div class="ut-footer-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <ul class="footer-lists">
+                        <li>
+                            <div class="top5-margin">
+                                <h3 class="text-center" i18n="@@hireATeacher_description">HireATeacher</h3>
+                                <p i18n="Footer|FooterText app@appFooter">{{'FooterTexto' | translate }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="footer-lists">
+                        <li class="">
+                            <h3 class=""><span i18n="FooterNavigation|FooterNavigationText app@appFooterNavigation">Navigation</span></h3>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="#" i18n="FooterHome|FooterHomeText app@appFooterHome">{{'Home' | translate }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#about" i18n="FooterWWD|FooterWWDText app@appFooterWWD">{{'About' | translate }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#team" i18n="FooterServices|FooterServicesText app@appFooterServices">{{'Team' | translate }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#service_provided" i18n="FooterTechnologies|FooterTechnologiesText app@appFooterTechnologies">{{'Why' | translate }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#contact" i18n="FooterContact|FooterContactText app@appFooterContact">{{'Contact' | translate }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="footer-lists">
+                        <li>
+                            <h3><span i18n="FooterContact|FooterContactText app@appFooterContact">{{'Contact' | translate }}</span></h3>
+                            <ul>
+                                <li>
+                                    <div><strong>E-mail: </strong>info@hireATeacher.com</div>
+                                </li>
+                                <li>
+                                    <div><strong i18n="FooterPhone|FooterPhoneText app@appFooterPhone">{{'ContactPhone' | translate }}: </strong>+598 99 946 874</div>
+                                </li>
+                                <li>
+                                    <div><strong i18n="FooterWebsite|FooterWebsiteText app@appFooterWebsite">Website: </strong>https://hireATeacher.com</div>
+                                </li>
+                                <li>
+                                    <div><strong i18n="FooterLocation|FooterLocationText app@appFooterLocation">{{'ContactLocation' | translate }}: </strong>Carlos de la Vega 4164, Montevideo, Uruguay</div>
+                                </li>
+                                <li>
+                                    <div><strong>SOCIAL</strong></div>
+                                    <div>
+                                        <div class="container text-center">
+                                            <div class="row">
+                                                <div class="col social_media_div">
+                                                    <a href="https://www.linkedin.com/company/hireATeacher/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="LinkedIn">
+                                                        <img src="../assets/img/ext_logos/if_square-linkedin_317725.svg" alt="LinkedIn" class="social_media_logo">
+                                                    </a>
+                                                </div>
+                                                <div class="col social_media_div">
+                                                    <a href="https://twitter.com/hireATeacher" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Twitter">
+                                                        <img src="../assets/img/ext_logos/Twitter_Logo_WhiteOnImage.svg" alt="Twitter" class="social_media_logo">
+                                                    </a>
+                                                </div>
+                                                <div class="col social_media_div">
+                                                    <a href="https://www.facebook.com/hireATeacher" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Facebook">
+                                                        <img src="../assets/img/ext_logos/facebook_icon.svg" alt="Facebook" class="social_media_logo">
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="container-fluid text-center top5-margin footer-post">
+                    All rights reserved © 2020 hireATeacher.com
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

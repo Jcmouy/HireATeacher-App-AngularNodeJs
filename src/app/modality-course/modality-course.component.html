@@ -1,0 +1,110 @@
+<span *ngIf="modalidades; else stillLoading">
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                                            <i class="material-icons">description</i> {{'DashboardSubject' | translate }}
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="profile">
+                                <form [formGroup]="asigTable">
+                                    <table class="table" id="table_asig">
+                                        <tbody>
+                                            <tr *ngFor="let item of tipoAsignatuas; let indexAsig='index'">
+                                                <div class="form-group" style="padding-bottom: 0px">
+                                                    <td id="t_asig">
+                                                        <div class="form-check"><label class="form-check-label">
+                                                          <input id="check_asig_{{indexAsig}}" class="form-check-input" type="checkbox" value="" [(ngModel)]="item.isChecked" (change)="changeAsigSelection()" [ngModelOptions]="{standalone: true}">
+                                                          <span class="form-check-sign"><span class="check"></span></span>
+</label>
+</div>
+</td>
+<td style="text-align: left; padding-top: 15px; width: 100%;">{{item.Nombre}}</td>
+<td *ngIf="item.isChecked" id="nivel" style="padding-top: 15px;">Nivel:</td>
+<ng-container *ngIf="item.isChecked">
+    <td id="checkboxes_nivel" *ngFor="let mod_item of niveles; let i='index'" style="padding-bottom: 0px;">
+        <div class="form-check"><label class="form-check-label">
+                                                                                                                        <input id="check_asig_{{indexAsig}}{{i}}" class="form-check-input" type="checkbox" value="" (change)="getSelected($event, mod_item, item.Nombre, item.Id)">
+                                                                                                                        <span class="form-check-sign"><span class="check"></span></span></label>
+        </div>
+        <p class="card-title " style="margin-right: 10px; font-size: 12px ">{{mod_item.Nombre}}</p>
+        <span></span>
+    </td>
+</ng-container>
+</div>
+</tr>
+</tbody>
+</table>
+<button mat-raised-button class="btn btn-primary pull-right" type="submit" (click)="submitAsigTable()">{{'Accept' | translate }}</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 ">
+    <div class="card ">
+        <div class="card-header card-header-tabs card-header-primary ">
+            <div class="nav-tabs-navigation ">
+                <div class="nav-tabs-wrapper ">
+                    <ul class="nav nav-tabs " data-tabs="tabs ">
+                        <li class="nav-item ">
+                            <a mat-button class="nav-link active " href="#settings " data-toggle="tab ">
+                                <i class="material-icons ">meeting_room</i> {{'DashboardModality' | translate }}
+                                <div class="ripple-container "></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body ">
+            <div class="tab-content ">
+                <div class="tab-pane active " id="settings ">
+                    <form [formGroup]="modTable">
+                        <table class="table " id="table_mod ">
+                            <tbody>
+                                <tr *ngFor="let item of modalidades">
+                                    <div class="form-group" style="padding-bottom: 0px">
+                                        <td>
+                                            <div class="form-check"><label class="form-check-label">
+                                                                                                                <input class="form-check-input" type="checkbox" value="" [(ngModel)]="item.isChecked" (change)="changeModSelection()" [ngModelOptions]="{standalone: true}">
+                                                                                                                <span class="form-check-sign"><span class="check"></span></span></label>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: left; padding-top: 15px; width: 100%;">{{item.Nombre}}</td>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button mat-raised-button class="btn btn-primary pull-right" type="submit" (click)="submitModTable()">{{'Accept' | translate }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</span>
+
+<ng-template #stillLoading>
+    <div class="main-content">
+        <img style="position: absolute; margin-left: auto; margin-right: auto;  margin-top: 33%; left: 0; right: 0; text-align: center;" *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+    </div>
+</ng-template>

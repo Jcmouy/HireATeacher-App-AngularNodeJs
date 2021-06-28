@@ -1,0 +1,14 @@
+<!-- dialog-box.component.html -->
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+    <mat-form-field *ngIf="action != 'Eliminar'; else elseTemplate">
+        <input placeholder="{{action}} archivo" matInput [(ngModel)]="local_data.Archivo">
+    </mat-form-field>
+    <ng-template #elseTemplate>
+        Está seguro que desea eliminar <b>{{local_data.Archivo}}</b>?
+    </ng-template>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancelar</button>
+</div>

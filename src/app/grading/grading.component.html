@@ -1,0 +1,82 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">{{'GradingTitle' | translate }}</h4>
+                        <p class="card-title">{{'GradingSubTitle' | translate }}</p>
+                    </div>
+                    <div class="card-body">
+                        <mat-card-header>
+                            <h4>{{'GradingUploadFile' | translate }}</h4>
+                        </mat-card-header>
+                        <button mat-raised-button (click)="fileSelect.click()">{{'GradingSelectFile' | translate }}</button
+                            ><br /><br />
+                            <h4>{{'GradingSelectedFile' | translate }}: {{ name }}</h4>
+                            <input
+                              type="file"
+                              hidden
+                              #fileSelect
+                              name="largeFile"
+                              (change)="onFileSelect($event)"
+                            />
+
+                            <button mat-raised-button (click)="resumableUpload()" color="primary">
+                              {{'GradingUpload' | translate }}
+                            </button>
+                        <br /><br />
+                        <mat-progress-spinner *ngIf="uploadPercent > 0 && !completeUpload" class="example-margin" [color]="color" [mode]="mode" [value]="uploadPercent">
+                        </mat-progress-spinner>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" hidden id="tableRow">
+        <div class="col-lg-8 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                                        <i class="material-icons">cloud</i> {{'GradingUploadedFile' | translate }}:
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="settings">
+                            <table #tableFiles class="table" id="tableFiles">
+                                <tbody>
+                                    <tr *ngFor="let item of fileList">
+                                        <td style="border-right: 1px solid darkgrey; color:darkgray; width: 4%;">
+                                            <i class="material-icons" style="color:darkorchid;">description</i>
+                                        </td>
+                                        <td style="padding-left: 30px; border-right: 1px solid darkgrey; color:darkgray; width: 93%;">{{ item.Archivo }}</td>
+                                        <td class="td-actions text-right" style="text-align:right;">
+                                            <button mat-raised-button type="button" matTooltip="Editar nombre del archivo" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="openDialog('Actualizar',item)">
+                                                  <i class="material-icons" >edit</i>
+                                              </button>
+                                            <button mat-raised-button type="button" matTooltip="Eliminar" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="openDialog('Eliminar',item)">
+                                                  <i class="material-icons">close</i>
+                                              </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
