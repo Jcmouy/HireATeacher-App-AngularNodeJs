@@ -23,19 +23,19 @@ function send_smsNew(mobile, otp) {
 
     /*JC
     const nexmo = new Nexmo({
-        apiKey: '00bbbb9e',
-        apiSecret: 'Y089XltdJHt433k5',
+        apiKey: 'xxxxxxxxxx',
+        apiSecret: 'xxxxxxxxx',
     });
     */
 
     //Pablo
     const nexmo = new Nexmo({
-        apiKey: '6bb5e10a',
-        apiSecret: 'J6Qg8PChahKg6I7J',
+        apiKey: 'xxxxxxxxxx',
+        apiSecret: 'xxxxxxxxxxxx',
     });
 
     const from = 'HireATeacher';
-    //const to = '59899946874';
+    //const to = 'xxxxxxxxxxx';
     const to = mobile;
     const text = 'Hello! Welcome to HireATeacher. Your OPT is' + otp_prefix + " " + otp_string;
 
